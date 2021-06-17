@@ -1,4 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { StoreDto } from '../dtos';
 import { Store } from '../entities';
 import { StoreService } from '../services/store.service';
 
@@ -8,8 +9,35 @@ export class StoreController {
 
   @Get()
   async findAll(){
-  // ): Promise<Store[]> {
-
     return await this.storeService.findAll();
   }
+
+  @Get(':id')
+  async findOne(
+    @Param('id') id: string,
+  ){
+    return await this.storeService.findOne(id);
+  }
+
+  @Post()
+  async create(
+    @Body() dto: StoreDto,
+  ) {
+    return await this.storeService.create(dto);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return await this.storeService.delete(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() dto: StoreDto,
+  ) {
+    return await this.storeService.update(id, dto);;
+  }
+
+
 }

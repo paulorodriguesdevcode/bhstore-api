@@ -12,23 +12,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-    }),
-    TypeOrmModule.forRootAsync({
-    useFactory: (configService: ConfigService) => ({
-      type: 'postgres',
-      host: configService.get('DB_HOST'),
-      port: configService.get<number>('DB_PORT'),
-      username: configService.get('DB_USERNAME'),
-      password: configService.get('DB_PASSWORD'),
-      database: configService.get('DB_DATABASE'),
-      entities: [__dirname + '/modules/**/*.entity{.ts,.js}'],
-      migrations: [__dirname + '/migrations/*{.ts,.js}'],
-      synchronize: false,      
-      migrationsRun: false,
-      logging: true,
-    }),
-    inject: [ConfigService],
-  }),],
+    }),    
+    ],
   controllers: [StoreController],
   providers: [StoreService],
 })

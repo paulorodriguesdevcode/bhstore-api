@@ -5,7 +5,6 @@ import { Store } from './store.entity';
 @Entity()
 export class Address {
 
-
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -20,11 +19,19 @@ export class Address {
 
   @Column({ length: 100 })
   district?: string;
-  
+
   @OneToOne(() => Store, (store: Store) => store.address, {
     onDelete: 'CASCADE',
   })
   store?: Store;
 
-  
+  constructor(id:string, country:string, state:string, city:string, district:string) {
+    this.id = id;
+    this.country = country;
+    this.state = state
+    this.district = district
+    this.city = city
+  }
+
+
 }

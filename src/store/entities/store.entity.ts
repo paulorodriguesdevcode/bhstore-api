@@ -4,7 +4,7 @@ import {Address} from './address.entity'
 export class Store  {
 
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?: string;
 
   @Column({ length: 100 })
   key?: string;
@@ -18,5 +18,11 @@ export class Store  {
   @JoinColumn()
   address?: Address;
 
+
+  constructor(id:string, key:string, address:Address) {
+    this.id = id;
+    this.key = key;
+    this.address = this.address
+  }
   
 }
