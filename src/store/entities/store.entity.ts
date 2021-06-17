@@ -1,10 +1,13 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn,  OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import {Address} from './address.entity'
+import { v4 as uuid } from 'uuid';
+
+
 @Entity()
 export class Store  {
 
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id? = uuid();
 
   @Column({ length: 100 })
   key?: string;
@@ -19,10 +22,9 @@ export class Store  {
   address?: Address;
 
 
-  constructor(id:string, key:string, address:Address) {
-    this.id = id;
+  constructor(key:string, address:Address) {
     this.key = key;
-    this.address = this.address
+    this.address = address
   }
   
 }

@@ -1,12 +1,14 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-
+import { v4 as uuid } from 'uuid';
 import { Store } from './store.entity';
+
+
 
 @Entity()
 export class Address {
 
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  id?= uuid();
 
   @Column({ length: 10 })
   country?: string;
@@ -25,12 +27,11 @@ export class Address {
   })
   store?: Store;
 
-  constructor(id:string, country:string, state:string, city:string, district:string) {
-    this.id = id;
+  constructor(country:string, state:string, city:string, district:string) {
     this.country = country;
     this.state = state
-    this.district = district
     this.city = city
+    this.district = district
   }
 
 

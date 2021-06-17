@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { StoreDto } from '../dtos';
-import { Store } from '../entities';
 import { StoreService } from '../services/store.service';
 
 @Controller()
@@ -8,14 +7,14 @@ export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
   @Get()
-  async findAll(){
+  async findAll() {
     return await this.storeService.findAll();
   }
 
   @Get(':id')
   async findOne(
     @Param('id') id: string,
-  ){
+  ): Promise<StoreDto | undefined> {
     return await this.storeService.findOne(id);
   }
 

@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { StoreDto } from '../dtos';
 import { Address, Store } from '../entities'
 
-const address = new Address('111', 'BR', 'MG', 'BH', 'TUPI')
-const store = new Store('1', '123454', address)
-const store1 = new Store('2', '123454', address)
-const store2 = new Store('3', '123454', address)
+const address = new Address('BR', 'MG', 'BH', 'TUPI')
+const store = new Store('123454', address)
+const store1 = new Store('123454', address)
+const store2 = new Store('123454', address)
 
 const stores = [];
 stores.push(store)
 stores.push(store1)
 stores.push(store2)
-
 
 @Injectable()
 export class StoreService {
@@ -24,11 +22,11 @@ export class StoreService {
     return store
   }
 
-  async create(dto: StoreDto) {
+  async create(dto:Store) {
     return store
   }
 
-  async update(id: string, dto: StoreDto) {
+  async update(id: string, dto:Store) {
     return store
   }
 
