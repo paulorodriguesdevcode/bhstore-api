@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { Address, Store } from '../entities'
 
 const address = new Address('BR', 'MG', 'BH', 'TUPI')
-const store = new Store('123454', address)
-const store1 = new Store('123454', address)
-const store2 = new Store('123454', address)
+const store = new Store('1', address)
+const store1 = new Store('2', address)
+const store2 = new Store('3', address)
 
-const stores = [];
+const stores:Store[]=[]
 stores.push(store)
 stores.push(store1)
 stores.push(store2)
@@ -18,19 +18,52 @@ export class StoreService {
     return stores
   }
 
-  async findOne(id) {
-    return store
+  async findByKey(key:string) {
+    const storeSelected = stores.filter(store=> store.key == key)
+
+    if(storeSelected.length === 0){
+      return new HttpException('Store not found', 400)
+    }
+
+    return storeSelected
   }
 
   async create(dto:Store) {
-    return store
+    stores.push(dto)
+    return stores
   }
 
-  async update(id: string, dto:Store) {
-    return store
+  async update(key: string, dto:Store) {  
+
+    if(!key){
+      return new HttpException('The key is required', 400)
+    }  
+
+    const storeSelectedIndex = stores.findIndex(store => store.key === key)
+
+    if(storeSelectedIndex<0){
+      return new HttpException('Store not found', 400)
+    }  
+
+    Object.assign(stores[storeSelectedIndex],dto)
+    
+    return stores[storeSelectedIndex]
   }
 
-  async delete(id: string) {
-    return store
+  async delete(key: string) {
+
+    if(!key){
+      return new HttpException('The key is required', 400)
+    }  
+
+    const storeSelectedIndex = stores.findIndex(store => store.key === key)
+
+    if(storeSelectedIndex < 0){
+      return new HttpException('Store not found', 400)
+    }  
+
+    stores.splice(storeSelectedIndex,1)
+
+    return stores
   }
 }

@@ -11,11 +11,11 @@ export class StoreController {
     return await this.storeService.findAll();
   }
 
-  @Get(':id')
+  @Get(':key')
   async findOne(
-    @Param('id') id: string,
-  ): Promise<StoreDto | undefined> {
-    return await this.storeService.findOne(id);
+    @Param('key') key: string,
+  ){
+    return await this.storeService.findByKey(key);
   }
 
   @Post()
@@ -25,17 +25,17 @@ export class StoreController {
     return await this.storeService.create(dto);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: string) {
-    return await this.storeService.delete(id);
+  @Delete(':key')
+  async delete(@Param('key') key: string) {
+    return await this.storeService.delete(key);
   }
 
-  @Put(':id')
+  @Put(':key')
   async update(
-    @Param('id') id: string,
+    @Param('key') key: string,
     @Body() dto: StoreDto,
   ) {
-    return await this.storeService.update(id, dto);;
+    return await this.storeService.update(key, dto);;
   }
 
 
