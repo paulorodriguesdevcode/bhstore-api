@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { StoreController } from './store/controllers/store.controller';
-import { StoreService } from './store/services/store.service';
-import { StoreModule } from './store/store.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { StoreController } from './modules/store/controllers/store.controller';
+import { StoreService } from './modules/store/services/store.service';
+import { StoreModule } from './modules/store/store.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 
 
 @Module({
@@ -12,9 +13,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-    }),    
+    }), AuthModule, UsersModule,    
     ],
   controllers: [StoreController],
   providers: [StoreService],
+
 })
 export class AppModule {} 
