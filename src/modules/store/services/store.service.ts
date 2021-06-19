@@ -22,10 +22,6 @@ export class StoreService {
   async findByKey(key: string) {
     const storeSelected = stores.filter(store => store.key == key)
 
-    if (storeSelected.length === 0) {
-      return new HttpException('Store not found', 400)
-    }
-
     return storeSelected
   }
 
