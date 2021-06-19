@@ -1,7 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { Address, Store } from '../entities'
+import { Store } from '../entities'
+import { IAddress } from '../models/address.enum';
 
-const address = new Address('BR', 'MG', 'BH', 'TUPI')
+const address :IAddress = {country:'BR',state:'MG',city:'BH',district:'TUPI'} 
 const store = new Store('1', address)
 const store1 = new Store('2', address)
 const store2 = new Store('3', address)
@@ -35,8 +36,8 @@ export class StoreService {
 
   async update(key: string, dto: Store) {
 
-    if (!key) {
-      return new HttpException('The key is required', 400)
+    if (!key || !dto || !dto.address.country || !dto.address.state || !dto.address.city || !dto.address.district) {
+      return new HttpException('All fields are required', 400)
     }
 
     const storeSelectedIndex = stores.findIndex(store => store.key === key)
@@ -45,7 +46,13 @@ export class StoreService {
       return new HttpException('Store not found', 400)
     }
 
-    Object.assign(stores[storeSelectedIndex], dto)
+    console.log('temos::: ',dto)
+    console.log('vai assinar:: ',stores[storeSelectedIndex])
+
+    stores[storeSelectedIndex].key = dto.key;
+    stores[storeSelectedIndex].address = dto.address;
+
+    console.log('fica assim ::',stores[storeSelectedIndex])
 
     return stores[storeSelectedIndex]
   }

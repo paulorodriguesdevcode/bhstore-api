@@ -1,5 +1,5 @@
-import {Address} from './address.entity'
 import { v4 as uuid } from 'uuid';
+import { IAddress } from '../models/address.enum';
 
 
 export class Store  {
@@ -8,9 +8,9 @@ export class Store  {
 
   key?: string;
   
-  address?: Address;
+  address?: IAddress;
 
-  constructor(key:string, address:Address) {
+  constructor(key:string, address:IAddress) {
     this.key = key;
     this.address = address
   }

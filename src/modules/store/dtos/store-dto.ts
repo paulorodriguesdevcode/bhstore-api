@@ -1,5 +1,6 @@
-import { Address, Store } from '../entities';
+import {  Store } from '../entities';
 import { ApiProperty } from '@nestjs/swagger';
+import { IAddress } from '../models/address.enum';
 
 export class StoreDto {
   @ApiProperty()
@@ -12,7 +13,7 @@ export class StoreDto {
 
   key?: string;  
   
-  address?: Address;
+  address?: IAddress;
   
   constructor(store: Store) {
     this.id = store.id;
